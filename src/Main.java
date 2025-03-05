@@ -1,39 +1,76 @@
-import java.util.Random;     //DANIEL LOTE GARCIA--
-import java.util.Scanner;
+import java.util.Scanner; // DANIEL LOTE GARCIA
 
 public class Main {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in);
-        Random ale = new Random();
-        int max = 100;
-        int min = 1;
-        int num1, num2, op = 0;
-        String operacion;
-        double resultado = 0;
 
-        System.out.println("CALCULADORA");
+        Scanner teclado = new Scanner(System.in);
+        int opcion;
+        String nombre, direccion, tel;
+        double saldo, recargar, extraccionRapida, retirar = 0;
+
+        System.out.print("Ingrese su nombre: ");
+        nombre = teclado.nextLine();
+
+        System.out.print("Ingrese su dirección: ");
+        direccion = teclado.nextLine();
+
+        System.out.print("Ingrese su teléfono: ");
+        tel = teclado.nextLine();
+
+        System.out.print("Ingrese su saldo inicial: ");
+        saldo = teclado.nextDouble();
 
         do {
-            num1 = ale.nextInt((max - min + 1)) + min;
-            num2 = ale.nextInt((max - min + 1)) + min;
-            System.out.println("Números generados: " + num1 + " y " + num2);
-            System.out.print(" operaciónes disponibles (+, -, *, /, ^, %): ");
-            operacion = teclado.next();
+            System.out.println("MENU DE OPCIONES");
+            System.out.println("1. Recargar");
+            System.out.println("2. Retirar");
+            System.out.println("3. Extracción rápida ");
+            System.out.println("4. Consultar saldo");
+            System.out.println("5. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = teclado.nextInt();
 
-            switch (operacion) {
-                case "+" -> resultado = num1 + num2;
-                case "-" -> resultado = num1 - num2;
-                case "*" -> resultado = num1 * num2;
-                case "/" -> resultado = (double) num1 / num2;
-                case "^" -> resultado = Math.pow(num1, num2);
-                case "%" -> resultado = num1 % num2;
+            switch (opcion) {
+                case 1 -> {
+                    System.out.print("Ingrese el monto a recargar: ");
+                    recargar = teclado.nextDouble();
+                    saldo += recargar;
+                    System.out.println("Recarga exitosa. Nuevo saldo: " + saldo);
+                }
+                case 2 -> {
+                    System.out.print("Ingrese el monto a retirar: ");
+                    retirar = teclado.nextDouble();
+                    if (retirar > saldo) {
+                        System.out.println("Saldo insuficiente.");
+                    } else {
+                        saldo -= retirar;
+                        System.out.println("Retiro exitoso. Nuevo saldo: " + saldo);
+                    }
+                }
+                case 3 ->{
+                    System.out.print("Extraccion rapida: ingresa el monto a retirar ");
+                    retirar = teclado.nextDouble();
+                    extraccionRapida = saldo * 0.2;
+                    saldo -= extraccionRapida;
+                    System.out.println("Extracción rápida realizada. Se descontó: " + extraccionRapida);
+                    System.out.println("Nuevo saldo: " + saldo);
+                }
+                case 4 ->{
+                    System.out.println("CUENTA ACTUAL ");
+                    System.out.println("Nombre: " + nombre);
+                    System.out.println("Teléfono: " + tel);
+                    System.out.println("Direccion: " + direccion);
+                    System.out.println("Saldo actual: " + saldo);
+                }
+                case 5->{
+                    System.out.println("CUENTA FINAL");
+                    System.out.println("Nombre: " + nombre);
+                    System.out.println("Teléfono: " + tel);
+                    System.out.println("Direccion: " + direccion);
+                    System.out.println("Saldo final: " + saldo);
+                }
             }
-            System.out.println("RESULTADO: " + resultado);
-            System.out.print("¿Desea realizar otra operación? (1: SI, 2: NO): ");
-            op = teclado.nextInt();
-
-        }
-        while (op == 1) ;
-        System.out.println("FINALIZO.");
+        }while (opcion != 5);
+        System.out.println("GRACIAS A FINALIZADO" );
     }
 }
