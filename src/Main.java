@@ -1,54 +1,39 @@
-import java.util.Random; // DANIEL LOTE GARCIA
+import java.util.Random;     //DANIEL LOTE GARCIA--
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
         Scanner teclado = new Scanner(System.in);
-
         Random ale = new Random();
-        int max = 3;
-        int min = 2;
-        int d1;
-        int aletorio = ale.nextInt((max - min + 1)) + min;
+        int max = 100;
+        int min = 1;
+        int num1, num2, op = 0;
+        String operacion;
+        double resultado = 0;
 
-        int monto, op;
-        System.out.println("APUESTA Y GANA");
-        System.out.println("INGRESE UN MONTO INCIAL:");
-        monto = teclado.nextInt();
+        System.out.println("CALCULADORA");
 
         do {
-            System.out.println("Generando número aleatorio...");
-            System.out.println("El número obtenido es: " + aletorio);
+            num1 = ale.nextInt((max - min + 1)) + min;
+            num2 = ale.nextInt((max - min + 1)) + min;
+            System.out.println("Números generados: " + num1 + " y " + num2);
+            System.out.print(" operaciónes disponibles (+, -, *, /, ^, %): ");
+            operacion = teclado.next();
 
-            switch (aletorio) {
-                case 1 -> {
-                    monto *= 2;
-                    System.out.println("¡Felicidades! Tu monto ahora es: " + monto);
-                }
-                case 2 -> {
-                    monto /= 2;
-                    System.out.println("Perdiste la mitad. Tu monto ahora es: " + monto);
-                }
-                case 3 -> {
-                    monto = 0;
-                    System.out.println("¡Perdiste todo! Juego terminado.");
-                }
+            switch (operacion) {
+                case "+" -> resultado = num1 + num2;
+                case "-" -> resultado = num1 - num2;
+                case "*" -> resultado = num1 * num2;
+                case "/" -> resultado = (double) num1 / num2;
+                case "^" -> resultado = Math.pow(num1, num2);
+                case "%" -> resultado = num1 % num2;
             }
+            System.out.println("RESULTADO: " + resultado);
+            System.out.print("¿Desea realizar otra operación? (1: SI, 2: NO): ");
+            op = teclado.nextInt();
 
-            if (monto > 0) {
-                System.out.print("¿Quieres seguir jugando? (1: Sí, 2: No): ");
-                op = teclado.nextInt();
-
-            } else {
-                op= 2;
-            }
-
-        } while (op == 1);
-
-        System.out.println("Te retiras con: " + monto);
-        System.out.println("FIN DEL JUEGO.");
-
+        }
+        while (op == 1) ;
+        System.out.println("FINALIZO.");
     }
-
 }
